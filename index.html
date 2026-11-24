@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#FEEAC9">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🍽️%3C/text%3E%3C/svg%3E">
+<title>SSPU CampusBite</title>
+<style>
+:root{--c1:#FEEAC9;--c2:#FFCDC9;--c3:#FDACAC;--c4:#FD7979;--tx:#3b1a1a;--mu:#8a6a66;--w:#fffaf3;color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}*{box-sizing:border-box}
+body{margin:0;background:var(--c1);color:var(--tx);font:15px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;-webkit-tap-highlight-color:transparent}
+#app{max-width:480px;margin:0 auto;padding:16px 16px 100px}
+h1{margin:6px 0;font-size:30px}h2{margin:8px 0}h3{margin:18px 0 8px;font-size:16px}.mu{color:var(--mu);font-size:13px}
+.hero{text-align:center;padding:20px 0 6px}.lg{font-size:44px;width:84px;height:84px;margin:0 auto;display:grid;place-items:center;background:var(--c2);border-radius:28px}
+.seg{display:flex;background:var(--c2);border-radius:14px;padding:4px;margin:12px 0}.seg button{flex:1;border:0;background:none;padding:10px;border-radius:11px;font:inherit;font-weight:600;color:var(--tx)}.seg .on{background:var(--w);box-shadow:0 1px 4px #0002}
+.card{background:var(--w);border:1.5px solid var(--c2);border-radius:20px;padding:14px;margin:10px 0}
+label{display:block;font-size:12px;color:var(--mu);margin:10px 0 4px}input{width:100%;font:inherit;padding:13px;border-radius:14px;border:1.5px solid var(--c3);background:#fff;color:var(--tx)}
+.btn{display:block;width:100%;margin:12px 0;padding:15px;border:0;border-radius:16px;background:var(--c4);color:var(--tx);font:inherit;font-weight:700;font-size:16px}.btn.sec{background:var(--c2)}.btn:disabled{opacity:.6}
+.lnk{background:none;border:0;color:var(--tx);text-decoration:underline;font:inherit}.err{color:#b42323;font-size:13px;min-height:18px;margin-top:6px}
+.cn{display:flex;gap:12px;align-items:center;width:100%;text-align:left;border:1.5px solid var(--c2);background:var(--w);border-radius:20px;padding:14px;margin:10px 0;font:inherit;color:var(--tx)}
+.em{font-size:32px;width:60px;height:60px;display:grid;place-items:center;background:var(--c1);border-radius:18px;flex:none}
+.bdg{display:inline-block;padding:3px 10px;border-radius:99px;background:var(--c1);font-size:12px;font-weight:600;margin-top:4px}
+.top{display:flex;align-items:center;gap:12px;margin-bottom:6px}.bk{width:40px;height:40px;border-radius:14px;border:0;background:var(--c2);font-size:18px;color:var(--tx)}
+.chips{display:flex;gap:8px;overflow-x:auto;padding:4px 0 10px}.chips.wrap{flex-wrap:wrap;overflow:visible}.chips button{flex:none;border:1.5px solid var(--c3);background:var(--w);padding:8px 14px;border-radius:99px;font:inherit;color:var(--tx)}.chips .on{background:var(--c4);border-color:var(--c4);font-weight:700}.chips button:disabled{opacity:.45}
+.it{display:flex;gap:12px;align-items:center;background:var(--w);border:1.5px solid var(--c2);border-radius:20px;padding:10px;margin:10px 0}.in{flex:1;min-width:0}.sold{opacity:.55}
+.add{border:1.5px solid var(--c4);background:var(--c1);padding:8px 16px;border-radius:12px;font:inherit;font-weight:700;color:var(--tx)}
+.qty{display:inline-flex;align-items:center;gap:10px;background:var(--c4);border-radius:12px;padding:3px}.qty button{width:30px;height:30px;border:0;border-radius:9px;background:var(--w);font-size:18px;color:var(--tx)}
+.tag{display:inline-block;width:12px;height:12px;border:2px solid;border-radius:3px;margin-right:6px;position:relative}.tag:after{content:"";position:absolute;inset:2px;border-radius:50%;background:currentColor}.v{color:#2b8a3e}.nv{color:#c92a2a}
+.row{display:flex;justify-content:space-between;align-items:center;gap:10px;margin:8px 0}.big{font-size:24px;font-weight:800}hr{border:0;border-top:1.5px dashed var(--c3)}
+.cartbar{position:fixed;left:16px;right:16px;bottom:calc(14px + env(safe-area-inset-bottom,0px));max-width:448px;margin:0 auto;display:flex;justify-content:space-between;padding:16px 18px;border:0;border-radius:18px;background:var(--tx);color:var(--c1);font:inherit;font-weight:600;box-shadow:0 6px 20px #0004}
+.rush{background:var(--c2);border-color:var(--c4)}
+.pm{display:flex;align-items:center;gap:10px;width:100%;padding:14px;margin:8px 0;border:1.5px solid var(--c2);border-radius:16px;background:var(--w);font:inherit;color:var(--tx)}.pm.on{border-color:var(--c4);background:var(--c2);font-weight:700}
+.ok{width:72px;height:72px;margin:16px auto 6px;border-radius:50%;background:var(--c4);display:grid;place-items:center;font-size:36px;font-weight:800}
+.oid{font-size:40px;font-weight:800;letter-spacing:3px;margin:4px 0}.idc{text-align:center;background:var(--c2);border:2px dashed var(--c4)}
+.steps{display:flex;gap:4px;margin:10px 0}.steps div{flex:1;text-align:center;font-size:11px;padding:6px 2px;border-radius:8px;background:var(--c1);color:var(--mu)}.steps .d{background:var(--c4);color:var(--tx);font-weight:700}
+#nav{position:fixed;bottom:0;left:0;right:0;max-width:480px;margin:0 auto;display:flex;background:var(--w);border-top:1.5px solid var(--c2);padding:8px 8px calc(8px + env(safe-area-inset-bottom,0px))}#nav:empty{display:none}
+#nav button{flex:1;border:0;background:none;font:inherit;font-size:12px;color:var(--mu);padding:6px}#nav .on{color:var(--tx);font-weight:700}
+
+
+</style></head><body>
+
+<div id="app"></div><div id="nav"></div>
+<script>
+const CAP=6,ST=["Preparing","Ready","Collected"];
+const mk=(p,a)=>a.map(x=>({id:p+x[0],n:x[1],p:x[2],c:x[3],v:x[4],e:x[5],t:x[6]}));
+const CAN=[
+{id:"yp",n:"Yippee",e:"🍜",tg:"Noodles, rolls and street food",px:"YP",base:12,items:mk("yp",[[1,"Veg Hakka Noodles",80,"Mains",1,"🍜",8],[2,"Chicken Schezwan Noodles",110,"Mains",0,"🍝",9],[3,"Paneer Kathi Roll",90,"Rolls",1,"🌯",6],[4,"Chicken Roll",100,"Rolls",0,"🌯",7],[5,"Veg Momos (6)",70,"Snacks",1,"🥟",7],[6,"Chicken Momos (6)",90,"Snacks",0,"🥟",8],[7,"Cold Coffee",50,"Drinks",1,"🥤",3]])},
+{id:"am",n:"Amul",e:"🥛",tg:"Shakes, sandwiches and ice cream",px:"AM",base:2,items:mk("am",[[1,"Chocolate Shake",70,"Drinks",1,"🥤",3],[2,"Mango Lassi",45,"Drinks",1,"🥛",2],[3,"Buttermilk",25,"Drinks",1,"🥛",1],[4,"Grilled Sandwich",60,"Snacks",1,"🥪",5],[5,"Paneer Sandwich",80,"Snacks",1,"🥪",6],[6,"Ice Cream Cup",40,"Desserts",1,"🍨",1],[7,"Brownie Sundae",90,"Desserts",1,"🍧",3]])},
+{id:"sx",n:"Sodexo The Corner",e:"🍱",tg:"Thalis, meals and hot snacks",px:"SX",base:18,items:mk("sx",[[1,"Veg Thali",90,"Meals",1,"🍱",10],[2,"Dal Rice",70,"Meals",1,"🍛",8],[3,"Chicken Biryani",130,"Meals",0,"🍗",12],[4,"Egg Curry Rice",90,"Meals",0,"🍳",10],[5,"Samosa (2)",20,"Snacks",1,"🥟",3],[6,"Masala Chai",12,"Drinks",1,"☕",2],[7,"Gulab Jamun (2)",30,"Desserts",1,"🍮",2]])}];
+let mem={};const ld=(k,d)=>{try{const v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return k in mem?mem[k]:d}};
+const sv=(k,v)=>{mem[k]=v;try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}};
+let users=ld("cb2_users",{}),orders=ld("cb2_orders",[]),SO=ld("cb2_so",{sx3:1});
+let S={scr:"auth",mode:"login",user:ld("cb2_sess",null),cur:null,cart:{},f:"All",slot:"ASAP",pm:"gpay",busy:0,sc:"yp",st:"orders",last:null};
+const $=s=>document.querySelector(s),inr=n=>"₹"+n.toFixed(2).replace(/\.00$/,""),esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const cn=id=>CAN.find(x=>x.id==id);
+const hs=s=>{let h=5381;for(const c of s)h=((h<<5)+h+c.charCodeAt(0))|0;return h.toString(36)};
+const load=c=>cn(c).base+orders.filter(o=>o.can==c&&o.st==0).reduce((s,o)=>s+o.items.reduce((a,i)=>a+i.q,0),0);
+const wait=c=>Math.round(4+load(c)*.9),lv=c=>{const l=load(c);return l<10?["🟢","Light"]:l<16?["🟡","Busy"]:["🔴","Rush hour"]};
+const lines=()=>cn(S.cur).items.filter(i=>S.cart[i.id]&&!SO[i.id]).map(i=>({i,q:S.cart[i.id]}));
+const cnt=()=>lines().reduce((s,l)=>s+l.q,0),sub=()=>lines().reduce((s,l)=>s+l.i.p*l.q,0),total=()=>Math.round(sub()*105)/100;
+function slots(){const o=[],d=new Date(Date.now()+15*6e4);d.setMinutes(Math.ceil(d.getMinutes()/15)*15,0,0);for(let i=0;i<8;i++){o.push(d.toLocaleTimeString("en-IN",{hour:"2-digit",minute:"2-digit"}));d.setMinutes(d.getMinutes()+15)}return o}
+function go(s){S.scr=s;R(1)}
+function R(top){$("#app").innerHTML=({auth:vAuth,can:vCan,menu:vMenu,cart:vCart,pay:vPay,done:vDone,ords:vOrds,staff:vStaff})[S.scr]();
+$("#nav").innerHTML=S.user&&(S.scr=="can"||S.scr=="ords")?`<button class="${S.scr=="can"?"on":""}" onclick="go('can')">🏠<br>Canteens</button><button class="${S.scr=="ords"?"on":""}" onclick="go('ords')">🧾<br>My orders</button><button onclick="logout()">🚪<br>Logout</button>`:"";
+if(top)window.scrollTo(0,0)}
+
+function vAuth(){const r=S.mode=="reg";return `<div class="hero"><div class="lg">🍽️</div><h1>CampusBite</h1><p class="mu">Order ahead from SSPU canteens and skip the queue.</p></div>
+<div class="seg"><button class="${r?"":"on"}" onclick="S.mode='login';R()">Login</button><button class="${r?"on":""}" onclick="S.mode='reg';R()">Register</button></div>
+<div class="card">${r?`<label>Full name</label><input id="an" autocomplete="name">`:""}<label>Mobile number</label><input id="ap" inputmode="numeric" maxlength="10" autocomplete="tel"><label>Password</label><input id="aw" type="password">
+<div class="err" id="ae"></div><button class="btn" onclick="auth()">${r?"Create account":"Login"}</button></div>
+<p class="mu" style="text-align:center">Canteen staff? <button class="lnk" onclick="staffIn()">Staff sign in</button></p>`}
+function auth(){const p=$("#ap").value.trim(),w=$("#aw").value,e=t=>{$("#ae").textContent=t};
+if(!/^[6-9]\d{9}$/.test(p))return e("Enter a valid 10-digit mobile number.");
+if(w.length<4)return e("Password must be at least 4 characters.");
+if(S.mode=="reg"){const n=$("#an").value.trim();if(n.length<2)return e("Please enter your name.");if(users[p])return e("This number is already registered. Please log in.");users[p]={n,w:hs(w+p)};sv("cb2_users",users)}
+else{const u=users[p];if(!u||u.w!=hs(w+p))return e("Wrong mobile number or password.")}
+S.user={p,n:users[p].n};sv("cb2_sess",S.user);go("can")}
+function logout(){S.user=null;S.cart={};sv("cb2_sess",null);go("auth")}
+function staffIn(){if(prompt("Staff PIN (demo PIN: 1234)")=="1234")go("staff")}
+
+function vCan(){return `<h2>Hi, ${esc(S.user.n.split(" ")[0])} 👋</h2><p class="mu" style="margin-top:0">Where are you eating today?</p>
+${CAN.map(c=>{const [ic,lb]=lv(c.id);return `<button class="cn" onclick="openCan('${c.id}')"><div class="em">${c.e}</div><div style="flex:1"><b>${c.n}</b><div class="mu">${c.tg}</div><span class="bdg">${ic} ${lb} · ~${wait(c.id)} min</span></div><span>›</span></button>`}).join("")}
+<p class="mu">Wait times update live with the number of pending orders.</p>`}
+function openCan(id){if(S.cur!=id){if(cnt()&&!confirm("Switching canteen will clear your cart. Continue?"))return;S.cart={};S.cur=id}S.f="All";go("menu")}
+
+const row=(i,w)=>{const q=S.cart[i.id]||0,so=SO[i.id];return `<div class="it ${so?"sold":""}"><div class="em">${i.e}</div><div class="in"><div><span class="tag ${i.v?"v":"nv"}"></span><b>${i.n}</b></div><div class="mu">${i.c} · ⏱ ${so?"–":"~"+(w+i.t)+" min"}</div><b>${inr(i.p)}</b></div>
+<div>${so?`<span class="mu">Sold out</span>`:q?`<div class="qty"><button onclick="q_('${i.id}',-1)">−</button><b>${q}</b><button onclick="q_('${i.id}',1)">+</button></div>`:`<button class="add" onclick="q_('${i.id}',1)">Add</button>`}</div></div>`};
+function q_(id,d){const n=Math.min(10,(S.cart[id]||0)+d);if(n<=0)delete S.cart[id];else S.cart[id]=n;R()}
+function vMenu(){const c=cn(S.cur),w=wait(c.id),[ic,lb]=lv(c.id),cats=[...new Set(c.items.map(i=>i.c))],n=cnt();
+const L=c.items.filter(i=>S.f=="All"||(S.f=="Veg"?i.v:S.f=="Non-veg"?!i.v:i.c==S.f));
+return `<div class="top"><button class="bk" onclick="go('can')">←</button><div><b>${c.n}</b><div class="mu">${c.tg}</div></div></div>
+<div class="card ${lb=="Rush hour"?"rush":""}">${ic} <b>${lb}</b> · current wait ~${w} min${lb=="Rush hour"?`<div class="mu">High demand right now. Pre-order a later pickup slot at checkout to skip the wait.</div>`:""}</div>
+<div class="chips">${["All","Veg","Non-veg",...cats].map(x=>`<button class="${S.f==x?"on":""}" onclick="S.f='${x}';R()">${x=="Veg"?"🟢 ":x=="Non-veg"?"🔴 ":""}${x}</button>`).join("")}</div>
+${L.map(i=>row(i,w)).join("")}
+${n?`<button class="cartbar" onclick="go('cart')"><span>View cart · ${n} item${n>1?"s":""}</span><b>${inr(sub())}</b></button>`:""}`}
+
+function vCart(){const L=lines();if(!L.length)return `<div class="card">Your cart is empty.</div><button class="btn" onclick="go('menu')">Back to menu</button>`;
+const s=sub(),g=s*.05,c=S.cur,w=wait(c);
+return `<div class="top"><button class="bk" onclick="go('menu')">←</button><b>Your cart · ${cn(c).n}</b></div>
+<div class="card">${L.map(l=>`<div class="row"><div>${l.i.n}<div class="mu">${inr(l.i.p)} each</div></div><div class="qty"><button onclick="q_('${l.i.id}',-1)">−</button><b>${l.q}</b><button onclick="q_('${l.i.id}',1)">+</button></div></div>`).join("")}
+<hr><div class="row"><span class="mu">Subtotal</span><span>${inr(s)}</span></div><div class="row"><span class="mu">GST (5%)</span><span>${inr(g)}</span></div><div class="row big"><b>Total</b><b>${inr(total())}</b></div></div>
+<h3>Pickup time</h3><div class="chips wrap"><button class="${S.slot=="ASAP"?"on":""}" onclick="S.slot='ASAP';R()">⚡ ASAP · ~${w+Math.max(...L.map(l=>l.i.t))} min</button>${slots().map(x=>{const f=orders.filter(o=>o.can==c&&o.slot==x).length>=CAP;return `<button ${f?"disabled":""} class="${S.slot==x?"on":""}" onclick="S.slot='${x}';R()">${x}${f?" · Full":""}</button>`}).join("")}</div>
+<p class="mu">Pre-order by picking a later slot. Each slot takes a limited number of orders.</p>
+<button class="btn" onclick="go('pay')">Continue to payment · ${inr(total())}</button>`}
+
+function vPay(){const M=[["gpay","Google Pay","📱"],["phonepe","PhonePe","📱"],["paytm","Paytm","📱"],["cash","Pay at counter","💵"]];
+return `<div class="top"><button class="bk" onclick="go('cart')">←</button><b>Payment</b></div>
+<div class="card"><div class="mu">Amount to pay</div><div class="big">${inr(total())}</div><div class="mu">${cn(S.cur).n} · Pickup ${S.slot}</div></div>
+<h3>Choose a payment method</h3>${M.map(m=>`<button class="pm ${S.pm==m[0]?"on":""}" onclick="S.pm='${m[0]}';R()"><span>${m[2]}</span> ${m[1]}</button>`).join("")}
+<button class="btn" ${S.busy?"disabled":""} onclick="pay()">${S.busy?"Processing…":S.pm=="cash"?"Place order":"Pay "+inr(total())}</button><p class="mu" style="text-align:center">Demo mode: no real payment is made.</p>`}
+function pay(){const c=S.cur,sl=S.slot;if(!lines().length){alert("Your cart has no available items.");return go("menu")}
+if(sl!="ASAP"&&(!slots().includes(sl)||orders.filter(o=>o.can==c&&o.slot==sl).length>=CAP)){S.slot="ASAP";alert("That pickup slot is no longer available. Please choose another.");return go("cart")}
+S.busy=1;R();setTimeout(()=>{let id;do{id=cn(c).px+"-"+(1000+Math.floor(Math.random()*9000))}while(orders.some(o=>o.id==id));
+const o={id,can:c,ph:S.user.p,name:S.user.n,items:lines().map(l=>({n:l.i.n,p:l.i.p,q:l.q})),total:total(),slot:sl,paid:S.pm!="cash",st:0,at:Date.now()};
+orders.unshift(o);sv("cb2_orders",orders);S.last=o;S.cart={};S.slot="ASAP";S.busy=0;go("done")},1200)}
+
+const sum=o=>o.items.map(i=>`<div class="row"><span>${i.n} × ${i.q}</span><span>${inr(i.p*i.q)}</span></div>`).join("");
+const steps=o=>`<div class="steps">${["Placed",...ST].map((s,i)=>`<div class="${i<=o.st+1?"d":""}">${s}</div>`).join("")}</div>`;
+function vDone(){const o=S.last;return `<div style="text-align:center"><div class="ok">✓</div><h2>Order placed!</h2><p class="mu">Show this Order ID at ${cn(o.can).n} to collect your food.</p></div>
+<div class="card idc"><div class="mu">ORDER ID</div><div class="oid">${o.id}</div><div class="mu">Pickup ${o.slot} · ${o.paid?"Paid":"Pay at counter"}</div></div>
+<div class="card">${sum(o)}<hr><div class="row"><b>Total</b><b>${inr(o.total)}</b></div></div>
+<button class="btn" onclick="go('ords')">Track my order</button><button class="btn sec" onclick="go('can')">Order something else</button>`}
+function vOrds(){const L=orders.filter(o=>o.ph==S.user.p);return `<h2>My orders</h2>${L.map(o=>`<div class="card"><div class="row"><div><b class="big" style="font-size:20px">${o.id}</b><div class="mu">${cn(o.can).n} · Pickup ${o.slot}</div></div><b>${inr(o.total)}</b></div>${steps(o)}
+<div class="mu">${o.items.map(i=>i.n+" × "+i.q).join(", ")}</div>${o.st==1?`<p><b>Your order is ready. Show your Order ID at the counter.</b></p>`:""}</div>`).join("")||`<div class="card mu">No orders yet. Pick a canteen to get started.</div>`}`}
+
+function vStaff(){const os=orders.filter(o=>o.can==S.sc),n=i=>os.filter(o=>o.st==i).length;
+return `<div class="top"><button class="bk" onclick="go(S.user?'can':'auth')">←</button><b>Staff dashboard</b></div>
+<div class="chips">${CAN.map(x=>`<button class="${S.sc==x.id?"on":""}" onclick="S.sc='${x.id}';R()">${x.e} ${x.n}</button>`).join("")}</div>
+<div class="card row" style="text-align:center"><div><b>${n(0)}</b><div class="mu">Preparing</div></div><div><b>${n(1)}</b><div class="mu">Ready</div></div><div><b>${n(2)}</b><div class="mu">Collected</div></div><div><b>${inr(os.reduce((s,o)=>s+o.total,0))}</b><div class="mu">Revenue</div></div></div>
+<div class="seg"><button class="${S.st=="orders"?"on":""}" onclick="S.st='orders';R()">Orders</button><button class="${S.st=="stock"?"on":""}" onclick="S.st='stock';R()">Stock</button></div>
+${S.st=="stock"?cn(S.sc).items.map(i=>`<div class="it"><div class="em">${i.e}</div><div class="in"><b>${i.n}</b><div class="mu">${inr(i.p)}</div></div><button class="add" onclick="SO['${i.id}']=SO['${i.id}']?0:1;sv('cb2_so',SO);R()">${SO[i.id]?"Sold out":"In stock"}</button></div>`).join(""):
+os.map(o=>`<div class="card"><div class="row"><b>${o.id}</b><span class="bdg">${ST[o.st]}</span></div><div>${esc(o.name)} · ${o.ph}</div><div class="mu">${o.items.map(i=>i.n+" × "+i.q).join(", ")}</div>
+<div class="row"><span class="mu">Pickup ${o.slot} · ${o.paid?"Paid":"Collect cash"}</span><b>${inr(o.total)}</b></div><div class="chips">${ST.map((s,i)=>`<button class="${o.st==i?"on":""}" onclick="adv('${o.id}',${i})">${s}</button>`).join("")}</div></div>`).join("")||`<p class="mu">No orders for this canteen yet.</p>`}
+<button class="btn sec" onclick="if(confirm('Clear all demo orders?')){orders=[];sv('cb2_orders',orders);R()}">Reset demo orders</button>`}
+function adv(id,i){const o=orders.find(x=>x.id==id);if(i==2&&o.st!=2){const v=prompt("Enter the customer’s Order ID to confirm pickup");if(v==null)return;if(v.trim().toUpperCase()!=o.id)return alert("Order ID does not match. Do not hand over this order.")}o.st=i;sv("cb2_orders",orders);R()}
+window.addEventListener("storage",e=>{if(e.key=="cb2_orders")orders=ld("cb2_orders",[]);else if(e.key=="cb2_so")SO=ld("cb2_so",{});else{if(e.key=="cb2_users")users=ld("cb2_users",{});return}if(!S.busy&&S.scr!="auth")R()});
+document.addEventListener("keydown",e=>{if(e.key=="Enter"&&S.scr=="auth")auth()});
+S.scr=S.user?"can":"auth";R();
+</script></body></html>
