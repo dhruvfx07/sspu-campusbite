@@ -55,7 +55,7 @@ const cn=id=>CAN.find(x=>x.id==id);
 const hs=s=>{let h=5381;for(const c of s)h=((h<<5)+h+c.charCodeAt(0))|0;return h.toString(36)};
 const load=c=>cn(c).base+orders.filter(o=>o.can==c&&o.st==0).reduce((s,o)=>s+o.items.reduce((a,i)=>a+i.q,0),0);
 const wait=c=>Math.round(4+load(c)*.9),lv=c=>{const l=load(c);return l<10?["🟢","Light"]:l<16?["🟡","Busy"]:["🔴","Rush hour"]};
-const lines=()=>cn(S.cur).items.filter(i=>S.cart[i.id]&&!SO[i.id]).map(i=>({i,q:S.cart[i.id]}));
+const lines=()=>!S.cur?[]:cn(S.cur).items.filter(i=>S.cart[i.id]&&!SO[i.id]).map(i=>({i,q:S.cart[i.id]}));
 const cnt=()=>lines().reduce((s,l)=>s+l.q,0),sub=()=>lines().reduce((s,l)=>s+l.i.p*l.q,0),total=()=>Math.round(sub()*105)/100;
 function slots(){const o=[],d=new Date(Date.now()+15*6e4);d.setMinutes(Math.ceil(d.getMinutes()/15)*15,0,0);for(let i=0;i<8;i++){o.push(d.toLocaleTimeString("en-IN",{hour:"2-digit",minute:"2-digit"}));d.setMinutes(d.getMinutes()+15)}return o}
 function go(s){S.scr=s;R(1)}
