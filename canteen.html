@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>CampusBite · Canteen Dashboard</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🍽️%3C/text%3E%3C/svg%3E">
+<style>
+:root{--c1:#FEEAC9;--c2:#FFCDC9;--c3:#FDACAC;--c4:#FD7979;--tx:#3b1a1a;--mu:#8a6a66;--w:#fffaf3;color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+*{box-sizing:border-box}body{margin:0;background:var(--c1);color:var(--tx);font:15px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+#app{max-width:1200px;margin:0 auto;padding:16px}.mu{color:var(--mu);font-size:13px}
+button{font:inherit;color:var(--tx);cursor:pointer}.btn{border:0;border-radius:14px;background:var(--c4);padding:12px 18px;font-weight:700}.btn.sec{background:var(--c2)}
+.top{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:12px}.top .sp{flex:1}
+.bdg{padding:5px 12px;border-radius:99px;background:var(--w);border:1.5px solid var(--c3);font-weight:600;font-size:13px}
+.card{background:var(--w);border:1.5px solid var(--c2);border-radius:18px;padding:14px;margin:10px 0}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px}.stats .card{margin:0;text-align:center}.stats b{font-size:26px;display:block}
+.seg{display:inline-flex;background:var(--c2);border-radius:14px;padding:4px;margin:12px 0}.seg button{border:0;background:none;padding:9px 18px;border-radius:11px;font-weight:600}.seg .on{background:var(--w);box-shadow:0 1px 4px #0002}
+.board{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:14px;align-items:start}
+.col{background:var(--c2);border-radius:20px;padding:12px}.col h3{margin:4px 6px 10px;display:flex;justify-content:space-between}
+.col .card{margin:8px 0}.late{border-color:#c92a2a;border-width:2px}.row{display:flex;justify-content:space-between;gap:8px;align-items:center;margin:6px 0}
+.oid{font-size:20px;font-weight:800;letter-spacing:1px}.flash{background:var(--c4);border-radius:14px;padding:12px 16px;font-weight:700;margin-bottom:10px}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}.chips button{border:1.5px solid var(--c3);background:var(--w);padding:10px 16px;border-radius:99px}.chips .on{background:var(--c4);border-color:var(--c4);font-weight:700}
+input{font:inherit;padding:12px;border-radius:14px;border:1.5px solid var(--c3);background:#fff;color:var(--tx);width:100%}
+.login{max-width:420px;margin:40px auto}.stk{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px}.stk .card{margin:0}
+.err{color:#b42323;font-size:13px;min-height:18px}
+</style></head><body><div id="app"></div>
+<script>
+const ST=["Preparing","Ready","Collected"];
+const CAN=[
+{id:"yp",n:"Yippee",e:"🍜",px:"YP",b:12,i:[["yp1","Veg Hakka Noodles",80],["yp2","Chicken Schezwan Noodles",110],["yp3","Paneer Kathi Roll",90],["yp4","Chicken Roll",100],["yp5","Veg Momos (6)",70],["yp6","Chicken Momos (6)",90],["yp7","Cold Coffee",50]]},
+{id:"am",n:"Amul",e:"🥛",px:"AM",b:2,i:[["am1","Chocolate Shake",70],["am2","Mango Lassi",45],["am3","Buttermilk",25],["am4","Grilled Sandwich",60],["am5","Paneer Sandwich",80],["am6","Ice Cream Cup",40],["am7","Brownie Sundae",90]]},
+{id:"sx",n:"Sodexo The Corner",e:"🍱",px:"SX",b:18,i:[["sx1","Veg Thali",90],["sx2","Dal Rice",70],["sx3","Chicken Biryani",130],["sx4","Egg Curry Rice",90],["sx5","Samosa (2)",20],["sx6","Masala Chai",12],["sx7","Gulab Jamun (2)",30]]}];
+let mem={};const ld=(k,d)=>{try{const v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return k in mem?mem[k]:d}};
+const sv=(k,v)=>{mem[k]=v;try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}};
+let orders=ld("cb2_orders",[]),SO=ld("cb2_so",{sx3:1}),C=ld("cb2_staffc",null),L="yp",tab="board",flash=0;
+const $=s=>document.querySelector(s),inr=n=>"₹"+n.toFixed(2).replace(/\.00$/,""),esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const cn=id=>CAN.find(x=>x.id==id),mins=o=>Math.max(0,Math.round((Date.now()-o.at)/6e4));
+
+function R(){$("#app").innerHTML=C?vDash():vLogin()}
+function vLogin(){return `<div class="login card"><h2 style="margin-top:0">🍽️ Canteen Dashboard</h2><p class="mu">Choose your canteen and enter the staff PIN (demo PIN: 1234).</p>
+<div class="chips">${CAN.map(c=>`<button class="${L==c.id?"on":""}" onclick="L='${c.id}';R()">${c.e} ${c.n}</button>`).join("")}</div>
+<input id="pin" type="password" inputmode="numeric" placeholder="Staff PIN" onkeydown="if(event.key=='Enter')login()"><div class="err" id="er"></div>
+<button class="btn" style="width:100%" onclick="login()">Open dashboard</button></div>`}
+function login(){if($("#pin").value!="1234")return $("#er").textContent="Wrong PIN.";C=L;sv("cb2_staffc",C);R()}
+function out(){C=null;sv("cb2_staffc",null);R()}
+
+function vDash(){const c=cn(C),os=orders.filter(o=>o.can==C),n=i=>os.filter(o=>o.st==i).length;
+const ld_=c.b+os.filter(o=>o.st==0).reduce((s,o)=>s+o.items.reduce((a,i)=>a+i.q,0),0),lb=ld_<10?"🟢 Light":ld_<16?"🟡 Busy":"🔴 Rush hour";
+return `<div class="top"><div><b style="font-size:20px">${c.e} ${c.n}</b><div class="mu">Canteen dashboard · ${new Date().toLocaleTimeString("en-IN",{hour:"2-digit",minute:"2-digit"})}</div></div><span class="bdg">${lb} · ~${Math.round(4+ld_*.9)} min wait</span><span class="sp"></span>
+<button class="btn sec" onclick="sample()">+ Sample order</button><button class="btn sec" onclick="out()">Logout</button></div>
+${flash?`<div class="flash">🔔 New order received!</div>`:""}
+<div class="stats"><div class="card"><b>${n(0)}</b><span class="mu">Preparing</span></div><div class="card"><b>${n(1)}</b><span class="mu">Ready</span></div><div class="card"><b>${n(2)}</b><span class="mu">Collected</span></div><div class="card"><b>${os.length}</b><span class="mu">Total orders</span></div><div class="card"><b>${inr(os.reduce((s,o)=>s+o.total,0))}</b><span class="mu">Revenue</span></div></div>
+<div class="seg"><button class="${tab=="board"?"on":""}" onclick="tab='board';R()">Order board</button><button class="${tab=="stock"?"on":""}" onclick="tab='stock';R()">Stock</button><button class="${tab=="top"?"on":""}" onclick="tab='top';R()">Insights</button></div>
+${tab=="stock"?`<div class="stk">${c.i.map(x=>`<div class="card row"><div><b>${x[1]}</b><div class="mu">${inr(x[2])}</div></div><button class="btn ${SO[x[0]]?"":"sec"}" onclick="SO['${x[0]}']=SO['${x[0]}']?0:1;sv('cb2_so',SO);R()">${SO[x[0]]?"Sold out":"In stock"}</button></div>`).join("")}</div>`:tab=="top"?vTop(os):
+`<div class="board">${ST.map((s,i)=>{const L2=os.filter(o=>o.st==i).sort((a,b)=>i==2?b.at-a.at:a.at-b.at);return `<div class="col"><h3>${["🍳","✅","📦"][i]} ${s} <span>${L2.length}</span></h3>${L2.map(o=>card(o,i)).join("")||`<p class="mu" style="margin:8px">Nothing here.</p>`}</div>`}).join("")}</div>`}`}
+function card(o,i){return `<div class="card ${i==0&&mins(o)>15?"late":""}"><div class="row"><span class="oid">${o.id}</span><span class="mu">${mins(o)} min ago</span></div>
+<div>${esc(o.name)} · ${esc(o.ph)}</div><div class="mu">${o.items.map(x=>esc(x.n)+" × "+x.q).join(", ")}</div>
+<div class="row"><span class="mu">Pickup ${o.slot} · ${o.paid?"Paid":"Collect cash"}</span><b>${inr(o.total)}</b></div>
+${i<2?`<button class="btn" style="width:100%;margin-top:6px" onclick="adv('${o.id}')">${i==0?"Mark Ready":"Verify ID & Collect"}</button>`:""}</div>`}
+function vTop(os){const t={},s={};os.forEach(o=>{o.items.forEach(i=>t[i.n]=(t[i.n]||0)+i.q);s[o.slot]=(s[o.slot]||0)+1});
+const li=(d,e)=>Object.entries(d).sort((a,b)=>b[1]-a[1]).slice(0,6).map(([k,v])=>`<div class="row"><span>${esc(k)}</span><b>${v}</b></div>`).join("")||`<p class="mu">${e}</p>`;
+return `<div class="board"><div class="card"><h3 style="margin-top:0">🏆 Best sellers</h3>${li(t,"No sales yet.")}</div><div class="card"><h3 style="margin-top:0">⏰ Busiest pickup slots</h3>${li(s,"No orders yet.")}</div></div>`}
+
+function adv(id){const o=orders.find(x=>x.id==id);if(!o||o.st>=2)return;if(o.st==1){const v=prompt("Enter the customer’s Order ID to confirm pickup");if(v==null)return;if(v.trim().toUpperCase()!=o.id)return alert("Order ID does not match. Do not hand over this order.")}o.st++;sv("cb2_orders",orders);R()}
+function sample(){const c=cn(C),a=c.i.filter(x=>!SO[x[0]]),r=n=>Math.floor(Math.random()*n);if(!a.length)return;
+const items=Array.from({length:1+r(2)},()=>{const x=a[r(a.length)];return{n:x[1],p:x[2],q:1+r(2)}});
+orders.unshift({id:c.px+"-"+(1000+r(9000)),can:C,ph:"9"+(1e8+r(9e8)),name:["Aarav","Diya","Rohan","Meera","Kabir"][r(5)],items,total:Math.round(items.reduce((s,i)=>s+i.p*i.q,0)*105)/100,slot:"ASAP",paid:r(10)>2,st:0,at:Date.now()});sv("cb2_orders",orders);ping();R()}
+function ping(){flash=1;try{const a=new(window.AudioContext||window.webkitAudioContext)(),o=a.createOscillator();o.connect(a.destination);o.frequency.value=880;o.start();setTimeout(()=>o.stop(),250)}catch(e){}setTimeout(()=>{flash=0;if(C)R()},4000)}
+addEventListener("storage",e=>{if(e.key=="cb2_orders"){const b=orders.filter(o=>o.can==C).length;orders=ld("cb2_orders",[]);if(C&&orders.filter(o=>o.can==C).length>b)ping()}else if(e.key=="cb2_so")SO=ld("cb2_so",{});R()});
+setInterval(()=>{if(C)R()},30000);R();
+</script></body></html>
